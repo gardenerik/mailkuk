@@ -1,0 +1,9 @@
+server:
+  listen_addr: "0.0.0.0:25"
+  domain: "mailkuk.example.com"
+  debug: false
+routing:
+  - mail: incoming@example.com
+    url: https://example.com/mail_handler/
+    headers:
+      Authorization: Bearer secret_token

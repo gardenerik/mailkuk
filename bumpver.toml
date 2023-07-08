@@ -1,0 +1,15 @@
+[bumpver]
+current_version = "v22.1"
+version_pattern = "vYY.PATCH"
+commit_message = "bump version -> {new_version}"
+commit = true
+tag = true
+push = true
+
+[bumpver.file_patterns]
+"main.go" = [
+    'const VERSION = "{version}"',
+]
+"bumpver.toml" = [
+    'current_version = "{version}"',
+]
