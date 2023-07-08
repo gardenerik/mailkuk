@@ -7,7 +7,7 @@ tag = true
 push = true
 
 [bumpver.file_patterns]
-"main.go" = [
+"mailkuk/version.go" = [
     'const VERSION = "{version}"',
 ]
 "bumpver.toml" = [

@@ -7,8 +7,6 @@ import (
 	"syscall"
 )
 
-const VERSION = "23.0"
-
 func main() {
 	log.Infof("mailkuk version %s", VERSION)
 
