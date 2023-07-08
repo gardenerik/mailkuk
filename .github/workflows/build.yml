@@ -9,6 +9,9 @@ env:
 
 jobs:
   build-go:
+    permissions:
+      contents: write
+      packages: write
     name: release linux/amd64
     runs-on: ubuntu-latest
     steps:
