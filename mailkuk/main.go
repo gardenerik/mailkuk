@@ -15,6 +15,7 @@ func main() {
 	config, err := loadConfig()
 	if err != nil {
 		log.Error("Error while loading config file", "err", err)
+		os.Exit(1)
 	}
 
 	if config.Server.Debug {
@@ -36,5 +37,6 @@ func main() {
 	err = startServer(config.Server)
 	if err != nil {
 		log.Error("Error while running SMTP server", "err", err)
+		os.Exit(1)
 	}
 }
