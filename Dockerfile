@@ -1,4 +1,4 @@
-FROM golang:1.20-alpine as build
+FROM golang:1.27-alpine AS build
 
 WORKDIR /build/
 COPY mailkuk/ .

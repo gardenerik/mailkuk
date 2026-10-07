@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/charmbracelet/log"
 	"github.com/emersion/go-smtp"
 	"io"
@@ -18,16 +17,12 @@ type Session struct {
 	rcptTo string
 }
 
-func (s *Session) AuthPlain(_, _ string) error {
-	return fmt.Errorf("auth is not supported")
-}
-
 func (s *Session) Mail(from string, opts *smtp.MailOptions) error {
 	log.Debugf("Receiving mail from %s", from)
 	return nil
 }
 
-func (s *Session) Rcpt(to string) error {
+func (s *Session) Rcpt(to string, _ *smtp.RcptOptions) error {
 	log.Debugf("Addressed to %s", to)
 	s.rcptTo = to
 	return nil
@@ -70,6 +65,5 @@ func startServer(cfg Server) error {
 	SMTPServer.ReadTimeout = 100 * time.Second
 	SMTPServer.WriteTimeout = 20 * time.Second
 	SMTPServer.MaxMessageBytes = 5242880 // 5 MB
-	SMTPServer.AuthDisabled = true
 	return SMTPServer.ListenAndServe()
 }
