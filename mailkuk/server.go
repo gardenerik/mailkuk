@@ -45,13 +45,11 @@ func (s *Session) Data(r io.Reader) error {
 		return nil
 	}
 
-	go func() {
-		log.Infof("Received mail for %s.", s.rcptTo)
-		err := sender.AcceptMail(data)
-		if err != nil {
-			log.Error("Error while accepting mail", "err", err)
-		}
-	}()
+	log.Infof("Received mail for %s.", s.rcptTo)
+	if err := sender.AcceptMail(data); err != nil {
+		log.Error("Error while accepting mail", "err", err)
+		return &smtp.SMTPError{Code: 451, Message: "Unable to accept mail at this time"}
+	}
 
 	return nil
 }
@@ -70,7 +68,7 @@ func startServer(cfg Server) error {
 	SMTPServer.Addr = cfg.ListenAddr
 	SMTPServer.Domain = cfg.Domain
 	SMTPServer.ReadTimeout = 100 * time.Second
-	SMTPServer.WriteTimeout = 10 * time.Second
+	SMTPServer.WriteTimeout = 20 * time.Second
 	SMTPServer.MaxMessageBytes = 5242880 // 5 MB
 	SMTPServer.AuthDisabled = true
 	return SMTPServer.ListenAndServe()
